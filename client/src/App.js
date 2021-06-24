@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 function App() {
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
@@ -10,13 +10,16 @@ function App() {
   };
   const handleSubmission = () => {
     console.log(selectedFile);
-    const data = new FormData() 
-    data.append('file', selectedFile)
-    axios.post('/sendFile',data)
-    .then(function (response) {
+    const data = new FormData();
+    data.append("file", selectedFile);
+    axios.post("/sendFile", data).then(function (response) {
       console.log(response);
-    })
+    });
   };
+  const runScript = ()=>{
+    fetch("/runScript")
+    .then((res)=>res.json());
+  }
   return (
     <div className="App">
       <input type="file" name="file" onChange={changeHandler} />
@@ -30,6 +33,9 @@ function App() {
       )}
       <div>
         <button onClick={handleSubmission}>Submit</button>
+      </div>
+      <div>
+        <button onClick={runScript}>Run Script</button>
       </div>
     </div>
   );
